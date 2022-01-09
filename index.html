@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<script src="./bin/weblzf.js"></script>
+<script>
+    // LFZ library API
+    Module.onRuntimeInitialized = async _ => {
+        const api = {
+          version: Module.cwrap('version', 'number', []),
+          create_buffer: Module.cwrap('create_buffer', 'number', ['number']),
+          destroy_buffer: Module.cwrap('destroy_buffer', '', ['number']),
+          compress: Module.cwrap('compress', 'number', ['number', 'number', 'number', 'number']),
+          decompress: Module.cwrap('decompress', 'number', ['number', 'number', 'number', 'number']),
+    };
+    console.log("LZF api version: ", api.version().toString(16));
+
+    // Input data
+    const input = Uint8Array.from('01010101010101010102020202020203030303030404040404505050505');
+    console.log("Before compression: ", input);
+
+    const p_in = api.create_buffer(input.length);
+    Module.HEAPU8.set(input, p_in);
+
+    // Compress
+    var p_out = api.create_buffer(input.length);
+    var p_out_length = api.compress(p_in, input.length, p_out, input.length);
+    console.log("After compression: ", Module.HEAPU8.subarray(p_out, p_out + p_out_length));
+
+    // Decompress
+    const p_after = api.create_buffer(input.length);
+    api.decompress(p_out, p_out_length, p_after, input.length);
+    console.log("After decompression: ", Module.HEAPU8.subarray(p_after, p_after + input.length));
+
+    // Do not forget release allocated memory
+    api.destroy_buffer(p_after);
+    api.destroy_buffer(p_out);
+    api.destroy_buffer(p_in)
+  };
+</script>
+
+</head>
+</html>

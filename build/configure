@@ -1,0 +1,47 @@
+#!/bin/bash
+
+ABORT=no
+
+check_cmake()
+{
+  (cmake --version) </dev/null >/dev/null 2>&1 ||
+    {
+    echo "error: cmake 2.6 must be present to configure and install weblzf."
+    echo ""
+    echo "cmake might be available as a package for your system,"
+    echo "or can be downloaded from http://cmake.org"
+    ABORT=yes
+    }
+}
+
+check_emscripten()
+{
+  (emcc --version) </dev/null >/dev/null 2>&1 ||
+    {
+    echo "error: emscripten must be present to compile weblzf."
+    echo ""
+    echo "emscripten might be available as a package for your system,"
+    echo "or can be downloaded from https://emscripten.org/"
+    ABORT=yes
+    }
+}
+
+check_node()
+{
+  (node --version) </dev/null >/dev/null 2>&1 ||
+    {
+    echo "warning: node not found. It is recommended for weblzf test."
+    echo ""
+    echo "nodejs might be available as a package for your system,"
+    echo "or can be downloaded from https://nodejs.org/en/download/"
+    }
+}
+
+check_cmake
+check_emscripten
+check_node
+
+test "$ABORT" = yes && exit -1
+
+rm -f CMakeCache.txt
+emcmake cmake ../
