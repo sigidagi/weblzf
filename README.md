@@ -39,7 +39,7 @@ check console logs on web browser
 ```
 firefox http://localhost:8000
 ```
-by pressing <F12>
+by pressing [F12]
 
 
 ### License
