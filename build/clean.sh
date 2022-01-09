@@ -16,10 +16,10 @@ if test -f "CMakeCache.txt"; then
     rm CMakeCache.txt
 fi
 
-if test -f  "../bin/weblzf.js"; then
-    rm ../bin/weblzf.js
+if test -f  "weblzf.js"; then
+    rm weblzf.js
 fi
 
-if test -f  "../bin/weblzf.wasm"; then
-    rm ../bin/weblzf.wasm
+if test -f  "weblzf.wasm"; then
+    rm weblzf.wasm
 fi

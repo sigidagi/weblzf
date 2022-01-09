@@ -18,8 +18,3 @@ target_link_options(${PROJECT_NAME} PRIVATE
     -sEXPORTED_RUNTIME_METHODS=['cwrap']
     -sEXPORTED_FUNCTIONS=['_version','_compress','_decompress']
 )
-
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND mv ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.js ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.wasm
-    ${CMAKE_SOURCE_DIR}/bin
-)

@@ -13,12 +13,9 @@ git clone https://github.com/sigidagi/weblzf
 cd weblzf/build
 ./configure
 make
-
-cd ../
-ls ./bin
 ```
 
-It will generate two files: binary [webassembly](https://webassembly.org/) file: *weblzf.wasm* and  JavaScript file: *weblzf.js* containing glue code to translate between the native C functions, and JavaScript/wasm. Check folderi: *weblzf/bin*
+It will generate two files: binary [webassembly](https://webassembly.org/) file: *weblzf.wasm* and  JavaScript file: *weblzf.js* containing glue code to translate between the native C functions, and JavaScript/wasm. Check build folder: *weblzf/build*
 
 ### LZF C library
 
@@ -31,7 +28,8 @@ Some performance comparision between different compression algorithms [LZF vs LZ
 
 ### Usage
 
-*index.html* provides example javascript code how to access LZF compression/decompression library.
+*index.html* provides example javascript code how to access LZF compression/decompression library. Run webserver using
+python (or similar server of your choice) from project root directory:
 
 ```
 python3 -m http.server
